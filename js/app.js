@@ -2,6 +2,17 @@
  * Create a list that holds all of your cards
  */
 
+ card = {
+   "diamond" : "fa-diamond",
+   "paper-plane" : "fa-paper-plane-o",
+   "anchor" : "fa-anchor",
+   "bolt" : "fa-bolt",
+   "cube" : "fa-cube",
+   "leaf" : "fa-leaf",
+   "bicycle" : "fa-bicycle",
+   "bomb" : "fa-bomb"
+ };
+
 
 
 /*
