@@ -1,19 +1,28 @@
+/*jshint esversion: 6 */
+
 /*
  * Create a list that holds all of your cards
  */
 
- card = {
-   "diamond" : "fa-diamond",
-   "paper-plane" : "fa-paper-plane-o",
-   "anchor" : "fa-anchor",
-   "bolt" : "fa-bolt",
-   "cube" : "fa-cube",
-   "leaf" : "fa-leaf",
-   "bicycle" : "fa-bicycle",
-   "bomb" : "fa-bomb"
- };
+ card = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
 
+// JSON card
+// card = {
+//   "diamond" : "fa-diamond",
+//   "paper-plane" : "fa-paper-plane-o",
+//   "anchor" : "fa-anchor",
+//   "bolt" : "fa-bolt",
+//   "cube" : "fa-cube",
+//   "leaf" : "fa-leaf",
+//   "bicycle" : "fa-bicycle",
+//   "bomb" : "fa-bomb"
+// };
 
+class Card {
+  constructor(card) {
+
+  }
+}
 
 /*
  * Display the cards on the page

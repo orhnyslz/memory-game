@@ -1,0 +1,27 @@
+{
+  "name": "memory-game-udacity",
+  "version": "1.0.0",
+  "description": "Memory Game Project by Orhan Yes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orhnyslz/memory-game.git"
+  },
+  "keywords": [
+    "udacity",
+    "webdev",
+    "js"
+  ],
+  "author": "OY",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/orhnyslz/memory-game/issues"
+  },
+  "homepage": "https://github.com/orhnyslz/memory-game#readme",
+  "devDependencies": {
+    "eslint-config-google": "^0.9.1"
+  }
+}
