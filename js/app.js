@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 
 // Create a list of 16 cards à 2 x 8
-const cards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
+const cards = ["diamond", "paper-plane-o", "anchor", "bolt", "cube", "leaf", "bicycle", "bomb"];
 let cardList = cards;
 cards.forEach(function(i) {
   cardList.push(i);
@@ -33,17 +33,15 @@ function shuffle(array) {
 shuffle(cardList);
 
 // Loop through each card, create its HTML and add it to the page
+let cardDeck = $('#cardDeck');
 
-let cardDeck = document.getElementById('cardDeck');
+cardList.forEach(function(cardName) {
+  cardDeck.append(`<li class="card">
+    <i class="fa fa-${cardName}"></i>
+    </li>`);
+});
 
-
-
-// <li class="card">
-//     <i class="fa fa-diamond"></i>
-// </li>
-
-// card classes: open, match, show (permanently), false (missing)
-
+// card classes: open, match, show (permanently), false (missing), right (missing)
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -55,3 +53,36 @@ let cardDeck = document.getElementById('cardDeck');
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+function showCard(e) {
+  $(e).addClass("show open");
+}
+
+let openCards = [];
+let matchedCards = [];
+
+function addOpenCard(e) {
+  openCards.push($(e).children("i").attr("class"));
+  console.log(openCards);
+  checkMatch(openCards);
+}
+
+
+function checkMatch(list) {
+  if (list[0] === list[1]) {
+    matchedCards.push(list[0]);
+  } else {
+    noMatch(list);
+  }
+  console.log(matchedCards);
+}
+
+function noMatch(list) {
+  list = [];
+}
+
+
+$(".deck").click(function(e) {
+  showCard(e.target);
+  addOpenCard(e.target);
+});
