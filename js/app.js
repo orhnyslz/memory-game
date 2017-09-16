@@ -7,13 +7,6 @@ cards.forEach(function(i) {
   cardList.push(i);
 });
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -56,12 +49,15 @@ cardList.forEach(function(cardName) {
 
  let openCards = [];
  let lockedCards = [];
+ let moveCount = 0;
+ let starCount = 3;
 
  $(".deck").click(function(event) {
    showCard(event.target);
    addOpenCard(event.target);
-   checkOpenedCards(event.target);
-   console.log(openCards);
+   checkOpenedCards();
+   outputFinalScore();
+   console.log(lockedCards);
  });
 
 function showCard(evt) {
@@ -72,15 +68,16 @@ function addOpenCard(evt) {
   openCards.push($(evt).children("i").attr("class"));
 }
 
-function checkOpenedCards(evt) {
+function checkOpenedCards() {
   if (openCards[1] !== undefined && openCards[0] === openCards[1]) {
     lockCards(openCards);
     removeCards(openCards);
+    incrementMoves();
   } else if (openCards[1] !== undefined && openCards[0] !== openCards[1]) {
     hideCards();
     removeCards(openCards);
+    incrementMoves();
   }
-  console.log(lockedCards);
 }
 
 function lockCards(list) {
@@ -89,18 +86,47 @@ function lockCards(list) {
   });
 }
 
-function removeCards(list, evt) {
-  setTimeout(function() {
-    list.splice(0, list.length);
-  }, 1000);
-}
-
 function hideCards() {
   setTimeout(function() {
     openCards.forEach(function(i) {
       let className = "." + i.substring(3);
-      console.log(className);
       $(className).parents("li").removeClass("show open");
     });
-  }, 1000);
+  }, 500);
 }
+
+function removeCards(list) {
+  setTimeout(function() {
+    list.splice(0, list.length);
+  }, 500);
+}
+
+function incrementMoves() {
+  moveCount++;
+  $(".moves").text(moveCount);
+  takeStars();
+}
+
+function takeStars() {
+  if (moveCount === 5) {
+    $(".stars li:last-child").children("i").removeClass("fa-star").addClass("fa-star-o");
+    starCount = 2;
+  } else if (moveCount === 10) {
+    $(".stars li:nth-child(2)").children("i").removeClass("fa-star").addClass("fa-star-o");
+    starCount = 1;
+  } else if (moveCount === 15) {
+    $(".stars li:nth-child(1)").children("i").removeClass("fa-star").addClass("fa-star-o");
+    starCount = 0;
+  }
+}
+
+function outputFinalScore() {
+  if (lockedCards.length > 16) {
+    alert(`Congratulations! You Won!
+  With ${moveCount} moves and ${starCount} stars`);
+  }
+}
+
+$(".fa-repeat").click(function() {
+  location.reload();
+});
