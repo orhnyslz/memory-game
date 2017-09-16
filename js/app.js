@@ -57,29 +57,29 @@ cardList.forEach(function(cardName) {
  let openCards = [];
  let lockedCards = [];
 
- $(".deck").click(function(e) {
-   showCard(e.target);
-   addOpenCard(e.target);
-   checkOpenedCards();
+ $(".deck").click(function(event) {
+   showCard(event.target);
+   addOpenCard(event.target);
+   checkOpenedCards(event.target);
+   console.log(openCards);
  });
 
-
-function showCard(e) {
-  $(e).addClass("show open");
+function showCard(evt) {
+  $(evt).addClass("show open");
 }
 
-function addOpenCard(e) {
-  openCards.push($(e).children("i").attr("class"));
+function addOpenCard(evt) {
+  openCards.push($(evt).children("i").attr("class"));
 }
 
-function checkOpenedCards() {
+function checkOpenedCards(evt) {
   if (openCards[1] !== undefined && openCards[0] === openCards[1]) {
     lockCards(openCards);
-    hideCards(openCards);
+    removeCards(openCards);
   } else if (openCards[1] !== undefined && openCards[0] !== openCards[1]) {
-      hideCards(openCards);
-    }
-  console.log(openCards);
+    hideCards();
+    removeCards(openCards);
+  }
   console.log(lockedCards);
 }
 
@@ -89,9 +89,18 @@ function lockCards(list) {
   });
 }
 
-function hideCards(list) {
-  list.forEach(function(i) {
-    $(i).toggleClass("open show");
-  });
-  list.splice(0, list.length);
+function removeCards(list, evt) {
+  setTimeout(function() {
+    list.splice(0, list.length);
+  }, 1000);
+}
+
+function hideCards() {
+  setTimeout(function() {
+    openCards.forEach(function(i) {
+      let className = "." + i.substring(3);
+      console.log(className);
+      $(className).parents("li").removeClass("show open");
+    });
+  }, 1000);
 }
