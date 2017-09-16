@@ -1,28 +1,11 @@
 /*jshint esversion: 6 */
 
-/*
- * Create a list that holds all of your cards
- */
-
- card = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
-
-// JSON card
-// card = {
-//   "diamond" : "fa-diamond",
-//   "paper-plane" : "fa-paper-plane-o",
-//   "anchor" : "fa-anchor",
-//   "bolt" : "fa-bolt",
-//   "cube" : "fa-cube",
-//   "leaf" : "fa-leaf",
-//   "bicycle" : "fa-bicycle",
-//   "bomb" : "fa-bomb"
-// };
-
-class Card {
-  constructor(card) {
-
-  }
-}
+// Create a list of 16 cards à 2 x 8
+const cards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
+let cardList = cards;
+cards.forEach(function(i) {
+  cardList.push(i);
+});
 
 /*
  * Display the cards on the page
@@ -45,6 +28,21 @@ function shuffle(array) {
 
     return array;
 }
+
+// Shuffle the cardList
+shuffle(cardList);
+
+// Loop through each card, create its HTML and add it to the page
+
+let cardDeck = document.getElementById('cardDeck');
+
+
+
+// <li class="card">
+//     <i class="fa fa-diamond"></i>
+// </li>
+
+// card classes: open, match, show (permanently), false (missing)
 
 
 /*
