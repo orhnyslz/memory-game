@@ -54,35 +54,44 @@ cardList.forEach(function(cardName) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+ let openCards = [];
+ let lockedCards = [];
+
+ $(".deck").click(function(e) {
+   showCard(e.target);
+   addOpenCard(e.target);
+   checkOpenedCards();
+ });
+
+
 function showCard(e) {
   $(e).addClass("show open");
 }
 
-let openCards = [];
-let matchedCards = [];
-
 function addOpenCard(e) {
   openCards.push($(e).children("i").attr("class"));
+}
+
+function checkOpenedCards() {
+  if (openCards[1] !== undefined && openCards[0] === openCards[1]) {
+    lockCards(openCards);
+    hideCards(openCards);
+  } else if (openCards[1] !== undefined && openCards[0] !== openCards[1]) {
+      hideCards(openCards);
+    }
   console.log(openCards);
-  checkMatch(openCards);
+  console.log(lockedCards);
 }
 
-
-function checkMatch(list) {
-  if (list[0] === list[1]) {
-    matchedCards.push(list[0]);
-  } else {
-    noMatch(list);
-  }
-  console.log(matchedCards);
+function lockCards(list) {
+  list.forEach(function(i) {
+    lockedCards.push(i);
+  });
 }
 
-function noMatch(list) {
-  list = [];
+function hideCards(list) {
+  list.forEach(function(i) {
+    $(i).toggleClass("open show");
+  });
+  list.splice(0, list.length);
 }
-
-
-$(".deck").click(function(e) {
-  showCard(e.target);
-  addOpenCard(e.target);
-});
