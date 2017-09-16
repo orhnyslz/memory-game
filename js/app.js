@@ -36,23 +36,13 @@ cardList.forEach(function(cardName) {
 
 // card classes: open, match, show (permanently), false (missing), right (missing)
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
 
  let openCards = [];
  let lockedCards = [];
  let moveCount = 0;
  let starCount = 3;
 
- $(".deck").click(function(event) {
+ $(".card").click(function(event) {
    showCard(event.target);
    addOpenCard(event.target);
    checkOpenedCards();
@@ -108,13 +98,13 @@ function incrementMoves() {
 }
 
 function takeStars() {
-  if (moveCount === 5) {
+  if (moveCount === 6) {
     $(".stars li:last-child").children("i").removeClass("fa-star").addClass("fa-star-o");
     starCount = 2;
-  } else if (moveCount === 10) {
+  } else if (moveCount === 14) {
     $(".stars li:nth-child(2)").children("i").removeClass("fa-star").addClass("fa-star-o");
     starCount = 1;
-  } else if (moveCount === 15) {
+  } else if (moveCount === 22) {
     $(".stars li:nth-child(1)").children("i").removeClass("fa-star").addClass("fa-star-o");
     starCount = 0;
   }
@@ -130,3 +120,32 @@ function outputFinalScore() {
 $(".fa-repeat").click(function() {
   location.reload();
 });
+
+// Timer function from https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
+var minutesLabel = document.getElementById("minutes");
+var secondsLabel = document.getElementById("seconds");
+var totalSeconds = 0;
+setInterval(setTime, 1000);
+
+function setTime()
+{
+    ++totalSeconds;
+    secondsLabel.innerHTML = pad(totalSeconds%60);
+    minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
+}
+
+function pad(val)
+{
+    var valString = val + "";
+    if(valString.length < 2)
+    {
+        return "0" + valString;
+    }
+    else
+    {
+        return valString;
+    }
+}
+
+
+// To-Do: Modal with Final Score and Refresh-Button, Readme-File, Comments
