@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+    <link rel="stylesheet" href="jquery-modal-master/jquery.modal.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
@@ -38,9 +39,16 @@
         <ul class="deck" id="cardDeck">
 
         </ul>
+
+        <div id="modal" style="display:none;">
+        </div>
+
+        <p><a href="#modal" rel="modal:open" data-modal></a></p>
+
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="jquery-modal-master/jquery.modal.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

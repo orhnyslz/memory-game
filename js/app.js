@@ -34,14 +34,15 @@ cardList.forEach(function(cardName) {
     </li>`);
 });
 
-// card classes: open, match, show (permanently), false (missing), right (missing)
 
-
+// list of variables used for gameplay
  let openCards = [];
  let lockedCards = [];
  let moveCount = 0;
  let starCount = 3;
+ let matches = 0;
 
+// functions being fired when clicked on a card
  $(".card").click(function(event) {
    showCard(event.target);
    addOpenCard(event.target);
@@ -58,6 +59,7 @@ function addOpenCard(evt) {
   openCards.push($(evt).children("i").attr("class"));
 }
 
+// The brain of the game... handles the gameplay with all functions needed
 function checkOpenedCards() {
   if (openCards[1] !== undefined && openCards[0] === openCards[1]) {
     lockCards(openCards);
@@ -74,6 +76,7 @@ function lockCards(list) {
   list.forEach(function(i) {
     lockedCards.push(i);
   });
+  matches++;
 }
 
 function hideCards() {
@@ -98,34 +101,44 @@ function incrementMoves() {
 }
 
 function takeStars() {
-  if (moveCount === 6) {
+  if (moveCount === 10) {
     $(".stars li:last-child").children("i").removeClass("fa-star").addClass("fa-star-o");
     starCount = 2;
-  } else if (moveCount === 14) {
+  } else if (moveCount === 18) {
     $(".stars li:nth-child(2)").children("i").removeClass("fa-star").addClass("fa-star-o");
     starCount = 1;
-  } else if (moveCount === 22) {
+  } else if (moveCount === 26) {
     $(".stars li:nth-child(1)").children("i").removeClass("fa-star").addClass("fa-star-o");
     starCount = 0;
   }
 }
 
 function outputFinalScore() {
-  if (lockedCards.length > 16) {
-    alert(`Congratulations! You Won!
-  With ${moveCount} moves and ${starCount} stars`);
+  if (matches === 8) {
+    clearInterval(gameTimer);
+    let minutes = $("#minutes").text();
+    let seconds = $("#seconds").text();
+    let congratulations = `<h2>Congratulations! You won!</h2>
+    <p>With ${moveCount} moves and ${starCount} stars. Your time was ${minutes}:${seconds} minutes.</p>
+    <button type="button" onclick="refresh()">Play again!</button>`;
+    $("#modal").append(congratulations);
+    $('#modal').modal();
   }
 }
 
-$(".fa-repeat").click(function() {
+function refresh() {
   location.reload();
+}
+
+$(".fa-repeat").click(function() {
+  refresh();
 });
 
-// Timer function from https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
+// Modified timer function from https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
 var minutesLabel = document.getElementById("minutes");
 var secondsLabel = document.getElementById("seconds");
 var totalSeconds = 0;
-setInterval(setTime, 1000);
+var gameTimer = setInterval(setTime, 1000);
 
 function setTime()
 {
@@ -146,6 +159,3 @@ function pad(val)
         return valString;
     }
 }
-
-
-// To-Do: Modal with Final Score and Refresh-Button, Readme-File, Comments
