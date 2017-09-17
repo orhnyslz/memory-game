@@ -35,7 +35,7 @@ cardList.forEach(function(cardName) {
 });
 
 
-// list of variables used for gameplay
+// list of variables used for the gameplay
  let openCards = [];
  let lockedCards = [];
  let moveCount = 0;
@@ -113,6 +113,7 @@ function takeStars() {
   }
 }
 
+// execute modal when all cards are matched
 function outputFinalScore() {
   if (matches === 8) {
     clearInterval(gameTimer);
