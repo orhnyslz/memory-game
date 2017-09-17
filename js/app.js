@@ -18,7 +18,6 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
 
@@ -42,14 +41,17 @@ cardList.forEach(function(cardName) {
  let starCount = 3;
  let matches = 0;
 
-// functions being fired when clicked on a card
- $(".card").click(function(event) {
-   showCard(event.target);
-   addOpenCard(event.target);
-   checkOpenedCards();
-   outputFinalScore();
-   console.log(lockedCards);
- });
+
+// a card is allowed to be clicked once and only when it is closed
+$(".card").on("click", function(event) {
+  if ($(event.target).hasClass("show open") === false && $(event.target).hasClass("fa") === false) {
+    showCard(event.target);
+    addOpenCard(event.target);
+    checkOpenedCards();
+    outputFinalScore();
+    console.log(lockedCards);
+  }
+});
 
 function showCard(evt) {
   $(evt).addClass("show open");
@@ -57,6 +59,7 @@ function showCard(evt) {
 
 function addOpenCard(evt) {
   openCards.push($(evt).children("i").attr("class"));
+  console.log(openCards);
 }
 
 // The brain of the game... handles the gameplay with all functions needed
@@ -101,15 +104,12 @@ function incrementMoves() {
 }
 
 function takeStars() {
-  if (moveCount === 10) {
+  if (moveCount === 14) {
     $(".stars li:last-child").children("i").removeClass("fa-star").addClass("fa-star-o");
     starCount = 2;
-  } else if (moveCount === 18) {
+  } else if (moveCount === 26) {
     $(".stars li:nth-child(2)").children("i").removeClass("fa-star").addClass("fa-star-o");
     starCount = 1;
-  } else if (moveCount === 26) {
-    $(".stars li:nth-child(1)").children("i").removeClass("fa-star").addClass("fa-star-o");
-    starCount = 0;
   }
 }
 
